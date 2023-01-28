@@ -7,12 +7,17 @@ import {
 } from "@heroicons/react/20/solid";
 import { Menu, Transition } from "@headlessui/react";
 import classNames from "../utils/classNames";
+import dayjs from "dayjs";
 
 const Header = () => {
+  // use dayjs to get the current month and year in "January 2023" format
+  const monthYear = dayjs().format("MMMM YYYY");
+  // get dateTime in "2023-01" format
+  const dateTime = dayjs().format("YYYY-MM");
   return (
     <header className="flex flex-none items-center justify-between border-b border-gray-200 py-4 px-6">
       <h1 className="text-lg font-semibold text-gray-900">
-        <time dateTime="2022-01">January 2022</time>
+        <time dateTime={dateTime}>{monthYear}</time>
       </h1>
       <div className="flex items-center">
         <div className="flex items-center rounded-md shadow-sm md:items-stretch">
