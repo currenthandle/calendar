@@ -1,5 +1,3 @@
-import dayjs from "dayjs";
-
 const Cell = ({
   day,
   date,
@@ -14,7 +12,6 @@ const Cell = ({
 
   const defaultStyles =
     "items-center justify-center font-semibold text-gray-900";
-  // use dayjs to get today's date as 12 format
 
   return (
     <div className="flex items-center justify-center py-3">
