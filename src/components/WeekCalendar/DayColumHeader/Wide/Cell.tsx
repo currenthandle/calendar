@@ -26,14 +26,3 @@ const Cell = ({
   );
 };
 export default Cell;
-
-{
-  /* <div className="flex items-center justify-center py-3">
-        <span className="flex items-baseline">
-          Wed{" "}
-          <span className="ml-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white">
-            12
-          </span>
-        </span>
-      </div> */
-}
