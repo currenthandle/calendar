@@ -49,6 +49,44 @@ export default function Example() {
     "11PM",
   ];
 
+  // write a click handler that calculates the location of the click using the x and y coordinates of the click event and the offset of the container
+  // then use the location to calculate the time of the click (day, hour, and minute)
+  const handleClick = (e: MouseEvent) => {
+    console.log("hello");
+    const target = e.currentTarget as HTMLElement;
+    console.log("target", target);
+    // const parent = target.closest("div");
+
+    const boundingRect = target?.getBoundingClientRect();
+    if (!boundingRect) return;
+
+    const topMarginElm = target?.querySelector(".top-margin");
+    if (!topMarginElm) return;
+    const topMargin = parseFloat(
+      getComputedStyle(topMarginElm).height.replace("px", "")
+    );
+
+    const rightElm = target?.querySelector(".right-margin");
+    if (!rightElm) return;
+    const rightMargin = parseFloat(
+      getComputedStyle(rightElm).width.replace("px", "")
+    );
+
+    const x = e.clientX - boundingRect.left;
+    const y = e.clientY - boundingRect.top - topMargin;
+
+    // use the width and height of the container to calculate the day, hour, and minute of the click
+    const day = Math.floor((x / (boundingRect.width - rightMargin)) * 7);
+    const hour = Math.floor((y / (boundingRect.height - topMargin)) * 24);
+    const minute = Math.floor(
+      ((y / (boundingRect.height - topMargin)) * 24 - hour) * 60
+    );
+
+    console.log("day", day);
+    console.log("hour", hour);
+    console.log("minute", minute);
+  };
+  // console.log("handleClick", handleClick);
   return (
     <div className="flex h-full flex-col">
       <Header />
@@ -68,7 +106,7 @@ export default function Example() {
             <div className="sticky left-0 z-10 w-14 flex-none bg-white ring-1 ring-gray-100" />
             <div
               className="grid flex-auto grid-cols-1 grid-rows-1"
-              onClick={() => console.log("hello")}
+              // onClick={handleClick}
             >
               {/* Horizontal lines */}
               <div

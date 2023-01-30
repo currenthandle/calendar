@@ -1,4 +1,4 @@
-import { SyntheticEvent } from "react";
+import { MouseEvent, MouseEventHandler, SyntheticEvent } from "react";
 import Event from "./Event";
 
 const Events = () => {
@@ -32,6 +32,7 @@ const Events = () => {
   // write a click handler that calculates the location of the click using the x and y coordinates of the click event and the offset of the container
   // then use the location to calculate the time of the click (day, hour, and minute)
   const handleClick = (e: MouseEvent) => {
+    console.log("hello");
     const target = e.target as HTMLElement;
     const parent = target.closest("div");
 
@@ -59,6 +60,10 @@ const Events = () => {
     const minute = Math.floor(
       ((y / (boundingRect.height - topMargin)) * 24 - hour) * 60
     );
+
+    console.log("day", day);
+    console.log("hour", hour);
+    console.log("minute", minute);
   };
 
   return (
@@ -68,7 +73,7 @@ const Events = () => {
       style={{
         gridTemplateRows: "1.75rem repeat(288, minmax(0, 1fr)) auto",
       }}
-      onClick={void handleClick}
+      onClick={handleClick}
     >
       {events.map((event, i) => (
         <Event key={event.title + i.toString()} {...event} />
