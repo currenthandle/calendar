@@ -87,7 +87,7 @@ export default function Example() {
                 <div className="col-start-5 row-span-full" />
                 <div className="col-start-6 row-span-full" />
                 <div className="col-start-7 row-span-full" />
-                {/* <div className="col-start-8 row-span-full w-8" /> */}
+                <div className="right-margin col-start-8 row-span-full w-8" />
               </div>
 
               {/* Events */}

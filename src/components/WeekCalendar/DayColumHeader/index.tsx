@@ -10,8 +10,8 @@ const DayColumHeader = ({
   return (
     <div
       ref={containerNav}
-      className="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 "
-      // className="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 sm:pr-8"
+      // className="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 "
+      className="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 sm:pr-8"
     >
       <Narrow />
       <Wide />
