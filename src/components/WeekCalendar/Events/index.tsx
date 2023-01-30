@@ -43,7 +43,18 @@ const Events = () => {
     // caclute firstRowHeight px value from rem value
     firstRowHeight?.replace("rem", "");
 
-    const rightElm = target.closest("div")?.querySelector(".right-margin");
+    const parent = target.closest("div");
+    console.log("parent", parent);
+
+    const topMarginElm = parent?.querySelector(".top-margin");
+    if (!topMarginElm) return;
+    const topMargin = parseFloat(
+      getComputedStyle(topMarginElm).height.replace("px", "")
+    );
+
+    // const grandParent = parent?.closest("div");
+    // console.log("gran", grandParent);
+    const rightElm = parent?.querySelector(".right-margin");
 
     console.log("typeof rightElm", typeof rightElm);
     // check that typeof rightElm is Element
@@ -53,6 +64,7 @@ const Events = () => {
     );
 
     console.log("rightMargin", rightMargin);
+    console.log("topMargin", topMargin);
 
     if (!firstRowHeight) return;
 
