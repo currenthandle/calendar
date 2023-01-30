@@ -1,4 +1,5 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
+import type { MouseEvent } from "react";
+import { useLayoutEffect, useRef } from "react";
 import DayColumHeader from "./DayColumHeader";
 import Events from "./Events";
 import Header from "./header";
@@ -51,51 +52,48 @@ export default function Example() {
 
   // write a click handler that calculates the location of the click using the x and y coordinates of the click event and the offset of the container
   // then use the location to calculate the time of the click (day, hour, and minute)
-  const handleClick = (e: MouseEvent) => {
-    console.log("hello");
-    const target = e.currentTarget as HTMLElement;
-    console.log("target", target);
-    // const parent = target.closest("div");
+  // const handleClick = (e: MouseEvent) => {
+  //   console.log("hello");
+  //   const target = e.currentTarget as HTMLElement;
+  //   console.log("target", target);
+  //   // const parent = target.closest("div");
 
-    const boundingRect = target?.getBoundingClientRect();
-    if (!boundingRect) return;
+  //   const boundingRect = target?.getBoundingClientRect();
+  //   if (!boundingRect) return;
 
-    const topMarginElm = target?.querySelector(".top-margin");
-    if (!topMarginElm) return;
-    const topMargin = parseFloat(
-      getComputedStyle(topMarginElm).height.replace("px", "")
-    );
+  //   const topMarginElm = target?.querySelector(".top-margin");
+  //   if (!topMarginElm) return;
+  //   const topMargin = parseFloat(
+  //     getComputedStyle(topMarginElm).height.replace("px", "")
+  //   );
 
-    const rightElm = target?.querySelector(".right-margin");
-    if (!rightElm) return;
-    const rightMargin = parseFloat(
-      getComputedStyle(rightElm).width.replace("px", "")
-    );
+  //   const rightElm = target?.querySelector(".right-margin");
+  //   if (!rightElm) return;
+  //   const rightMargin = parseFloat(
+  //     getComputedStyle(rightElm).width.replace("px", "")
+  //   );
 
-    const x = e.clientX - boundingRect.left;
-    const y = e.clientY - boundingRect.top - topMargin;
+  //   const x = e.clientX - boundingRect.left;
+  //   const y = e.clientY - boundingRect.top - topMargin;
 
-    // use the width and height of the container to calculate the day, hour, and minute of the click
-    const day = Math.floor((x / (boundingRect.width - rightMargin)) * 7);
-    const hour = Math.floor((y / (boundingRect.height - topMargin)) * 24);
-    const minute = Math.floor(
-      ((y / (boundingRect.height - topMargin)) * 24 - hour) * 60
-    );
+  //   // use the width and height of the container to calculate the day, hour, and minute of the click
+  //   const day = Math.floor((x / (boundingRect.width - rightMargin)) * 7);
+  //   const hour = Math.floor((y / (boundingRect.height - topMargin)) * 24);
+  //   const minute = Math.floor(
+  //     ((y / (boundingRect.height - topMargin)) * 24 - hour) * 60
+  //   );
 
-    console.log("day", day);
-    console.log("hour", hour);
-    console.log("minute", minute);
-  };
-  // console.log("handleClick", handleClick);
+  //   console.log("day", day);
+  //   console.log("hour", hour);
+  //   console.log("minute", minute);
+  // };
+
   return (
     <div className="flex h-full flex-col">
       <Header />
       <div
         ref={container}
         className="isolate flex flex-auto flex-col overflow-auto bg-white"
-        // onClick={(e) => {
-        //   console.log(e);
-        // }}
       >
         <div
           style={{ width: "165%" }}

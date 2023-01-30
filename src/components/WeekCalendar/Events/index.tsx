@@ -32,7 +32,6 @@ const Events = () => {
   // write a click handler that calculates the location of the click using the x and y coordinates of the click event and the offset of the container
   // then use the location to calculate the time of the click (day, hour, and minute)
   const handleClick = (e: MouseEvent) => {
-    console.log("hello");
     const target = e.target as HTMLElement;
     const parent = target.closest("div");
 
