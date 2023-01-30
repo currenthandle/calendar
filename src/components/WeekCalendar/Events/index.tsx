@@ -91,8 +91,10 @@ const Events = () => {
 
     // use the width and height of the container to calculate the day, hour, and minute of the click
     const day = Math.floor((x / (boundingRect.width - rightMargin)) * 7);
-    const hour = Math.floor((y / boundingRect.height) * 24);
-    const minute = Math.floor(((y / boundingRect.height) * 24 - hour) * 60);
+    const hour = Math.floor((y / (boundingRect.height - topMargin)) * 24);
+    const minute = Math.floor(
+      ((y / (boundingRect.height - topMargin)) * 24 - hour) * 60
+    );
 
     console.log("day", day);
     console.log("hour", hour);
