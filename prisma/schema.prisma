@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "postgresql"
     // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
     // Further reading:
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
@@ -48,6 +48,8 @@ model Session {
 }
 
 model User {
+    // id            String    @id @default(cuid())
+    // make user id a unique @unique
     id            String    @id @default(cuid())
     name          String?
     email         String?   @unique
@@ -55,6 +57,10 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    // a user can have many events and the events should relate to the user not "Attendees"
+
+    events    Event[] @relation("OwnerRefferal")
+    attending Event[] @relation("AttendeeRefferal")
 }
 
 model VerificationToken {
@@ -63,4 +69,27 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+// make a model for Events
+model Event {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    title     String
+    date      DateTime
+    duration  Int
+    color     String
+    // location  String
+    // link      String
+    // image     String
+    // excerpt   String
+    // slug      String
+    // an event is owned by a user
+    userId    String   @unique
+    owner     User     @relation("OwnerRefferal", fields: [userId], references: [id])
+    // an event can have many attendees (users)
+    // the relationship between Events and Users is one way.
+    // an event can have many attendees but a user doesn't have attendees
+    attendees User[]   @relation("AttendeeRefferal")
 }
