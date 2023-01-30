@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import DayColumHeader from "./DayColumHeader";
 import Events from "./Events";
 import Header from "./header";
@@ -9,7 +9,7 @@ export default function Example() {
   const containerNav = useRef<HTMLDivElement>(null);
   const containerOffset = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Set the container scroll position based on the current time.
     const currentMinute = new Date().getHours() * 60;
     if (container.current && containerNav.current && containerOffset.current) {
@@ -55,13 +55,16 @@ export default function Example() {
       <div
         ref={container}
         className="isolate flex flex-auto flex-col overflow-auto bg-white"
+        // onClick={(e) => {
+        //   console.log(e);
+        // }}
       >
         <div
           style={{ width: "165%" }}
-          className="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full"
+          className="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full "
         >
           <DayColumHeader containerNav={containerNav} />
-          <div className="flex flex-auto">
+          <div className="cal-container flex flex-auto ">
             <div className="sticky left-0 z-10 w-14 flex-none bg-white ring-1 ring-gray-100" />
             <div className="grid flex-auto grid-cols-1 grid-rows-1">
               {/* Horizontal lines */}
@@ -69,7 +72,7 @@ export default function Example() {
                 className="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100"
                 style={{ gridTemplateRows: "repeat(48, minmax(3.5rem, 1fr))" }}
               >
-                <div ref={containerOffset} className="row-end-1 h-7"></div>
+                {/* <div ref={containerOffset} className="row-end-1 h-7"></div> */}
                 {hoursOfDay.map((hour) => (
                   <HourLabel key={hour} hourOfDay={hour} />
                 ))}
@@ -84,7 +87,7 @@ export default function Example() {
                 <div className="col-start-5 row-span-full" />
                 <div className="col-start-6 row-span-full" />
                 <div className="col-start-7 row-span-full" />
-                <div className="col-start-8 row-span-full w-8" />
+                {/* <div className="col-start-8 row-span-full w-8" /> */}
               </div>
 
               {/* Events */}

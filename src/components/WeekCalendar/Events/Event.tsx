@@ -16,16 +16,24 @@ const Event = ({
 
   // get day of week from start date
   const dayOfWeek = start.getDay();
-  console.log("dayOfWeek", dayOfWeek);
+  // console.log("title", title);
+  // console.log("start", start);
+  // console.log("dayOfWeek", dayOfWeek);
 
-  console.log("duration", duration);
+  // console.log("duration", duration);
+  // console.log("");
   // use duration to calculate gridRow span
 
   // console.log("startHour", startHour);
   return (
     <li
-      className={`relative mt-px flex  sm:col-start-${dayOfWeek}`}
-      style={{ gridRow: `${2 + startHour * 12} / span ${duration * 12}` }}
+      className={`relative mt-px flex  ${
+        /*`sm:col-start-${dayOfWeek + 1}`*/ ""
+      }`}
+      style={{
+        gridRow: `${2 + startHour * 12} / span ${duration * 12}`,
+        gridColumnStart: dayOfWeek + 1,
+      }}
     >
       <a
         href="#"
