@@ -33,10 +33,6 @@ const Events = () => {
   // then use the location to calculate the time of the click (day, hour, and minute)
   const handleClick = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
-    const boundingRect = target?.getBoundingClientRect();
-    if (!boundingRect) return;
-    console.log("target", target);
-    console.log("boundingRect", boundingRect);
 
     let firstRowHeight: string | number | undefined =
       target.style.gridTemplateRows.split(" ")[0];
@@ -45,6 +41,12 @@ const Events = () => {
 
     const parent = target.closest("div");
     console.log("parent", parent);
+
+    // const boundingRect = target?.getBoundingClientRect();
+    const boundingRect = parent?.getBoundingClientRect();
+    if (!boundingRect) return;
+    console.log("target", target);
+    console.log("boundingRect", boundingRect);
 
     const topMarginElm = parent?.querySelector(".top-margin");
     if (!topMarginElm) return;
@@ -79,7 +81,7 @@ const Events = () => {
     console.log("boundingRect", boundingRect);
 
     const x = e.clientX - boundingRect.left;
-    const y = e.clientY - boundingRect.top;
+    const y = e.clientY - boundingRect.top - topMargin;
     // console.log("x, y", x, y);
 
     // get and viewport width and height
