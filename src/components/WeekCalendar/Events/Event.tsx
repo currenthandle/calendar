@@ -5,31 +5,36 @@ const Event = ({
   date,
   duration,
   color,
+  timeZone,
 }: {
   title: string;
-  date: string;
+  date: Date;
   duration: number;
-  // start: Date;
-  // end: Date;
   color: string;
+  timeZone: string;
 }) => {
-  // console.log("props", props);
+  const getTimeZone = () => {
+    if (timeZone === "America/Pacific") {
+      return 8;
+    }
+    return 0;
+  };
+  const hourOffset = getTimeZone();
+
   const start = new Date(date);
-  const startHour = start.getHours();
-  // use start and end to calculate event duration in hours
-  // const duration = end.getHours() - startHour;
+  let startHour = start.getHours() + hourOffset;
+  startHour = startHour > 23 ? 0 : startHour;
 
-  // get day of week from start date
+  const getFormatHour = (hour: number) => {
+    if (hour > 12) {
+      return [hour - 12, "PM"];
+    }
+    return [hour, "AM"];
+  };
+  const formattedHour = getFormatHour(startHour);
+
   const dayOfWeek = start.getDay();
-  // console.log("title", title);
-  // console.log("start", start);
-  // console.log("dayOfWeek", dayOfWeek);
 
-  // console.log("duration", duration);
-  // console.log("");
-  // use duration to calculate gridRow span
-
-  // console.log("startHour", startHour);
   return (
     <li
       className={`relative mt-px flex  ${
@@ -46,7 +51,9 @@ const Event = ({
       >
         <p className={`order-1 font-semibold text-${color}-700`}>{title}</p>
         <p className={`text-${color}-500 group-hover:text-${color}-700`}>
-          <time dateTime="2022-01-12T06:00">{startHour}:00 AM</time>
+          <time dateTime="2022-01-12T06:00">
+            {formattedHour[0]}:00{formattedHour[1]}
+          </time>
         </p>
       </a>
     </li>
