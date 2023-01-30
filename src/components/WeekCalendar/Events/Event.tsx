@@ -1,18 +1,23 @@
 const Event = ({
   title,
-  start,
-  end,
+  // start,
+  // end,
+  date,
+  duration,
   color,
 }: {
   title: string;
-  start: Date;
-  end: Date;
+  date: string;
+  duration: number;
+  // start: Date;
+  // end: Date;
   color: string;
 }) => {
   // console.log("props", props);
+  const start = new Date(date);
   const startHour = start.getHours();
   // use start and end to calculate event duration in hours
-  const duration = end.getHours() - startHour;
+  // const duration = end.getHours() - startHour;
 
   // get day of week from start date
   const dayOfWeek = start.getDay();
@@ -31,7 +36,7 @@ const Event = ({
         /*`sm:col-start-${dayOfWeek + 1}`*/ ""
       }`}
       style={{
-        gridRow: `${2 + startHour * 12} / span ${duration * 12}`,
+        gridRow: `${2 + startHour * 12} / span ${duration / 5}`,
         gridColumnStart: dayOfWeek + 1,
       }}
     >

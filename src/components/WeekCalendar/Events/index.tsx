@@ -1,33 +1,40 @@
-import { MouseEvent, MouseEventHandler, SyntheticEvent } from "react";
+import type { MouseEvent } from "react";
+import { api } from "../../../utils/api";
 import Event from "./Event";
 
 const Events = () => {
-  const events = [
-    {
-      title: "Breakfast",
-      start: new Date(2023, 0, 29, 6, 0),
-      end: new Date(2023, 0, 29, 7, 0),
-      color: "blue",
-    },
-    {
-      title: "Flight to Paris",
-      start: new Date(2023, 0, 30, 7, 30),
-      end: new Date(2023, 0, 30, 9, 0),
-      color: "pink",
-    },
-    {
-      title: "Flight to Toyko",
-      start: new Date(2023, 0, 31, 11, 30),
-      end: new Date(2023, 0, 31, 12, 0),
-      color: "green",
-    },
-    {
-      title: "Meeting with design team at Disney",
-      start: new Date(2023, 0, 29, 9, 0),
-      end: new Date(2023, 0, 29, 10, 30),
-      color: "grey",
-    },
-  ];
+  // use event trpc router to get events
+  // const { data: events } = useQuery(["events"], () => {
+  const events = api.event.getAll.useQuery();
+
+  console.log("events", events);
+
+  // const events = [
+  //   {
+  //     title: "Breakfast",
+  //     start: new Date(2023, 0, 29, 6, 0),
+  //     end: new Date(2023, 0, 29, 7, 0),
+  //     color: "blue",
+  //   },
+  //   {
+  //     title: "Flight to Paris",
+  //     start: new Date(2023, 0, 30, 7, 30),
+  //     end: new Date(2023, 0, 30, 9, 0),
+  //     color: "pink",
+  //   },
+  //   {
+  //     title: "Flight to Toyko",
+  //     start: new Date(2023, 0, 31, 11, 30),
+  //     end: new Date(2023, 0, 31, 12, 0),
+  //     color: "green",
+  //   },
+  //   {
+  //     title: "Meeting with design team at Disney",
+  //     start: new Date(2023, 0, 29, 9, 0),
+  //     end: new Date(2023, 0, 29, 10, 30),
+  //     color: "grey",
+  //   },
+  // ];
 
   // write a click handler that calculates the location of the click using the x and y coordinates of the click event and the offset of the container
   // then use the location to calculate the time of the click (day, hour, and minute)
@@ -65,6 +72,8 @@ const Events = () => {
     console.log("minute", minute);
   };
 
+  console.log("events.status", events.status);
+
   return (
     <ol
       className="col-start-1 col-end-2 row-start-1 grid grid-cols-1 sm:grid-cols-7	sm:pr-8"
@@ -74,9 +83,14 @@ const Events = () => {
       }}
       onClick={handleClick}
     >
-      {events.map((event, i) => (
-        <Event key={event.title + i.toString()} {...event} />
-      ))}
+      {events.status === "success" &&
+        events.data.length > 0 &&
+        events.data.map(
+          (event, i) => (
+            console.log("event", event),
+            (<Event key={event.title + i.toString()} {...event} />)
+          )
+        )}
     </ol>
   );
 };
